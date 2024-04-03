@@ -8,7 +8,6 @@ const { getData, setData } = require("../../helper/redis");
 exports.createUser = async (payload) => {
     // encrypt the password
     payload.password = bcrypt.hashSync(payload.password, 10);
-    // bcrypt.compareSync(password, passwordDB)
 
     if (payload.photo) {
         // upload image to cloudinary
@@ -25,21 +24,20 @@ exports.createUser = async (payload) => {
         payload.photo = imageUpload.secure_url;
     }
 
-    //save db
+    // save to db
     const data = await user.create(payload);
 
-    //save redis
+    // save to redis (email and id)
     const keyID = `user:${data.id}`;
     await setData(keyID, data, 300);
 
     const keyEmail = `user:${data.email}`;
     await setData(keyEmail, data, 300);
 
-
     return data;
 };
 
-exports.getUser = async (id) => {
+exports.getUserByID = async (id) => {
     const key = `user:${id}`;
 
     // get from redis
@@ -49,7 +47,7 @@ exports.getUser = async (id) => {
     }
 
     // get from db
-    data = await student.findAll({
+    data = await user.findAll({
         where: {
             id,
         },
@@ -64,7 +62,7 @@ exports.getUser = async (id) => {
     throw new Error(`User is not found!`);
 };
 
-exports.getUser = async (email) => {
+exports.getUserByEmail = async (email) => {
     const key = `user:${email}`;
 
     // get from redis
@@ -74,7 +72,7 @@ exports.getUser = async (email) => {
     }
 
     // get from db
-    data = await student.findAll({
+    data = await user.findAll({
         where: {
             email,
         },
