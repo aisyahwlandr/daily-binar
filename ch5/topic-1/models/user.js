@@ -20,8 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: DataTypes.TEXT,
     name: DataTypes.STRING,
-    photo: DataTypes.TEXT
-  }, {
+    photo: DataTypes.TEXT,
+    role: DataTypes.ENUM("user", "admin"),
+  }, 
+  {
     sequelize,
     modelName: "user",
     paranoid: true,
