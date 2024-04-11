@@ -19,5 +19,6 @@
 <p>npx sequelize model:generate --name student --attributes name:string,photo:text,class_id:integer</p>
 <p>npx sequelize migration:create --name classes_students_deletedAt</p>
 <p>npx sequelize db:migrate:undo</p>
+<p>npx sequelize model:generate --name member --attributes email:string,password:text,name:string,photo:text</p>
 <p>npx sequelize migration:create --name users_add_column_role</p>
 <p>npx sequelize db:migrate</p>
