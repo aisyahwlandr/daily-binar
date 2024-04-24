@@ -13,6 +13,7 @@
 <p>npm i bcrypt</p>
 <p>npm i jsonwebtoken</p>
 
+<p>------------------------------------------------------------------</p>
 
 <p>npx sequelize db:create</p>
 <p>npx sequelize model:generate --name class --attributes name:string</p>
@@ -23,3 +24,14 @@
 <p>npx sequelize db:migrate</p>
 <p>npx sequelize migration:create --name users_add_column_role</p>
 <p>npx sequelize db:migrate</p>
+
+<p>------------------------------------------------------------------</p>
+
+<p>npm create vite@latest topic-1 -- --template react</p>
+<p>cd topic-1</p>
+<p>npm install</p>
+<p>npm install react-bootstrap bootstrap</p>
+<p>react-router-dom</p>
+<p>npm i react-router-dom</p>
+
+
