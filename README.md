@@ -34,4 +34,8 @@
 <p>react-router-dom</p>
 <p>npm i react-router-dom</p>
 
+<p>------------------------------------------------------------------</p>
+<p>npm install @reduxjs/toolkit</p>
+<p>npm install react-redux</p>
+
 

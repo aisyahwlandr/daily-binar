@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 
 const Home = () => {
+    const {token} = useSelector((state) => state.auth);
+
     const [cars, setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -45,6 +48,7 @@ const Home = () => {
     return (
         <div>
             <h1>Car List</h1>
+            <p>Token: {token}</p>
             <Row>
                 {isLoading ? (
                     <p>Loading...</p>
