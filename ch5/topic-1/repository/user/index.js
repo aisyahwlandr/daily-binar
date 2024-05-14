@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const axios = require("axios");
 const { user } = require("../../models");
 const { uploader } = require("../../helper/cloudinary");
 const { getData, setData } = require("../../helper/redis");
@@ -22,6 +23,11 @@ exports.createUser = async (payload) => {
         // Process to upload image
         const imageUpload = await uploader(photo);
         payload.photo = imageUpload.secure_url;
+    }
+
+
+    if (payload?.picture) {
+        payload.photo = payload?.picture;
     }
 
     // save to db
@@ -62,7 +68,7 @@ exports.getUserByID = async (id) => {
     throw new Error(`User is not found!`);
 };
 
-exports.getUserByEmail = async (email) => {
+exports.getUserByEmail = async (email, returnError) => {
     const key = `user:${email}`;
 
     // get from redis
@@ -84,5 +90,16 @@ exports.getUserByEmail = async (email) => {
         return data[0];
     }
 
-    throw new Error(`User is not found!`);
+    if (returnError) {
+        throw new Error(`User is not found!`);
+    }
+
+    return null;
+};
+
+exports.getGoogleAccessTokenData = async (accessToken) => {
+    const response = await axios.get(
+        `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
+    );
+    return response.data;
 };
