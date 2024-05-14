@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { toast } from "react-toastify";
+import GoogleLogin from "../GoogleLogin";
 
 function Register() {
     const [name, setName] = useState("");
@@ -115,6 +116,8 @@ function Register() {
             <Button variant="primary" type="submit" disabled={isLoading}>
                 {isLoading ? "Processing..." : "Register"}
             </Button>
+            {"  or  "}
+            <GoogleLogin text={"Register with Google"} />
         </Form>
     );
 }

@@ -1,24 +1,25 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { getProfile } from "../../redux/actions/auth";
+import { getProfile, logout } from "../../redux/actions/auth";
 
 const NavbarComponent = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { user, token } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        // get user profile if we have token
-        dispatch(getProfile());
+        dispatch(getProfile(null, null, null));
     }, [dispatch, token]);
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
                 <Navbar.Brand as={Link} to="/">
-                    Kampus Merdeka 
+                    Kampus Merdeka
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -33,8 +34,8 @@ const NavbarComponent = () => {
                                 </Nav.Link>
                                 <Nav.Link
                                     onClick={() => {
-                                        localStorage.removeItem("token");
-                                        window.location = "";
+                                        dispatch(logout());
+                                        navigate("/login");
                                     }}
                                 >
                                     Logout

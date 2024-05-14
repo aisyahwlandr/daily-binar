@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { login }from "../../redux/actions/auth";
+import { login } from "../../redux/actions/auth";
+import GoogleLogin from "../GoogleLogin";
 
 function Login() {
     const navigate = useNavigate();
@@ -15,13 +16,8 @@ function Login() {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        // make loading
-        setIsLoading(true);
-
         /* login action (fetch api) */
-        dispatch(login(navigate, email, password));
-
-        setIsLoading(false);
+        dispatch(login(navigate, email, password, setIsLoading));
     };
 
     return (
@@ -53,6 +49,8 @@ function Login() {
             <Button variant="primary" type="submit" disabled={isLoading}>
                 {isLoading ? "Processing..." : "Login"}
             </Button>
+            {"  or  "}
+            <GoogleLogin text={"Login with Google"} />
         </Form>
     );
 }

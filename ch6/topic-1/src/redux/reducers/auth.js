@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Initial state, it is like [..., ...] the first variable of useState but it is globally
+// Define the initial state
 const initialState = {
     token: localStorage.getItem("token") || null,
     user: null,
@@ -14,7 +14,7 @@ const initialState = {
                         -> setUser({id:1,"email": "a@example.com"})
 */
 
-// Define the slice, the slice is consist of initial state and the setter of the global state
+// Define the slice
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -34,8 +34,8 @@ const authSlice = createSlice({
     },
 });
 
-// Export the function to set the state
+// export the setter funtion
 export const { setToken, setUser } = authSlice.actions;
 
-// Export the global state, so the variable in the initialState will be available in any component
+// export the reducer
 export default authSlice.reducer;
